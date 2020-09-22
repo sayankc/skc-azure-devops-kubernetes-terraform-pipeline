@@ -25,5 +25,5 @@ variable cluster_name {
 }
 
 variable resource_group {
-  default = "kubernetes"
+  default = "skc-k8-cluste-rg"
 }
