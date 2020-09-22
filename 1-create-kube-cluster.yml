@@ -17,7 +17,7 @@ steps:
   inputs:
     secureFile: 'sayankc_azure_rsa.pub'
 - task: TerraformCLI@0
-  displayName: 'terraform-init'
+  displayName: 'terraform init'
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
@@ -35,7 +35,7 @@ steps:
 
 
 - task: TerraformCLI@0
-  displayName: 'terraform-apply'
+  displayName: 'terraform apply Cluster'
   inputs:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
@@ -44,7 +44,7 @@ steps:
     allowTelemetryCollection: false
 
 - task: TerraformCLI@0
-  displayName: 'terraform-destroy'
+  displayName: 'terraform destroy cluster'
   inputs:
     command: 'destroy'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
