@@ -17,11 +17,11 @@ variable node_count {
 
 
 variable dns_prefix {
-  default = "skc-k8-cluster"
+  default = "skc-k8-cluster-dns"
 }
 
 variable cluster_name {
-  default = "k8stest"
+  default = "skc-k8-cluster"
 }
 
 variable resource_group {
