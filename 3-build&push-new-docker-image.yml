@@ -1,0 +1,39 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Bash@3
+      displayName: update index file
+      inputs:
+        targetType: 'inline'
+        script: |
+
+          echo 'Hello before'
+          ls -l
+          echo "Hello skc-nginx. Deployment $(Build.BuildId)" 
+          echo "Hello skc-nginx. Deployment $(Build.BuildId)" >$(System.DefaultWorkingDirectory)/index.html
+          
+          echo 'Hello after'
+          ls -l
+    - task: Docker@2
+      displayName: build docker file
+      inputs:
+        containerRegistry: 'docker-hub-svc-con'
+        repository: 'myreposayankc/skcnginx'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
