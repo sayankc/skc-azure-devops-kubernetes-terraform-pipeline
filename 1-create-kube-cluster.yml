@@ -43,11 +43,11 @@ steps:
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
     allowTelemetryCollection: false
 
-- task: TerraformCLI@0
-  displayName: 'terraform destroy cluster'
-  inputs:
-    command: 'destroy'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
-    allowTelemetryCollection: false
+# - task: TerraformCLI@0
+#   displayName: 'terraform destroy cluster'
+#   inputs:
+#     command: 'destroy'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+#     environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
+#     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
+#     allowTelemetryCollection: false
