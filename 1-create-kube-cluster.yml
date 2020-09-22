@@ -17,7 +17,7 @@ steps:
   inputs:
     secureFile: 'sayankc_azure_rsa.pub'
 - task: TerraformCLI@0
-  name: 'terraform-init'
+  displayName: 'terraform-init'
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
