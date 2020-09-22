@@ -17,7 +17,7 @@ variable node_count {
 
 
 variable dns_prefix {
-  default = "k8stest"
+  default = "skc-k8-cluster"
 }
 
 variable cluster_name {
