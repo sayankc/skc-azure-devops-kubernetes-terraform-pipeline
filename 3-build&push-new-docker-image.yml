@@ -10,7 +10,7 @@ resources:
 #   value: '$(Build.BuildId)'
 
 variables:
-  tag: 41
+  tag: '$(Build.BuildId)'
   
 # '$(Build.BuildId)'
 
