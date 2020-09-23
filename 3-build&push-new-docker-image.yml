@@ -30,10 +30,18 @@ stages:
           echo 'Hello after'
           ls -l
     - task: Docker@2
-      displayName: build docker file
+      displayName: build docker image
       inputs:
         containerRegistry: 'docker-hub-svc-con'
         repository: 'myreposayankc/skcnginx'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'artifact-4-k8-deploy'
+        publishLocation: 'Container'
+
+
+        
