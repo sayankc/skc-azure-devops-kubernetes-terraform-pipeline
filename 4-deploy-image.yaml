@@ -5,7 +5,8 @@ resources:
 - repo: self
 
 variables:
-  artifactTag: '$(Build.BuildId)'
+- group: my-variable-grp-1
+- name: image-Build-BuildId
 
 stages:
   - stage: Deploy
