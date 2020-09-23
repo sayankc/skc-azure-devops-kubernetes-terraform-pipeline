@@ -4,11 +4,13 @@ trigger:
 resources:
 - repo: self
 
-variables:
-- group: my-variable-grp-1
-- name: image-Build-BuildId
-  value: '$(Build.BuildId)'
+# variables:
+# - group: my-variable-grp-1
+# - name: image-Build-BuildId
+#   value: '$(Build.BuildId)'
 
+variables:
+  tag: '$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -27,8 +29,8 @@ stages:
 
           echo 'Hello before'
           ls -l
-          echo "Hello skc-nginx. Deployment $(image-Build-BuildId)" 
-          echo "Hello skc-nginx. Deployment $(image-Build-BuildId)" >$(System.DefaultWorkingDirectory)/index.html
+          echo "Hello skc-nginx. Deployment $(tag)" 
+          echo "Hello skc-nginx. Deployment $(tag)" >$(System.DefaultWorkingDirectory)/index.html
           
           echo 'Hello after'
           ls -l
@@ -39,7 +41,7 @@ stages:
         repository: 'myreposayankc/skcnginx'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: '$(image-Build-BuildId)'
+        tags: '$(tag)'
     - task: CopyFiles@2
       displayName: copy artifacts for publish
       inputs:
@@ -51,6 +53,34 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'artifact-4-k8-deploy'
         publishLocation: 'Container'
-
-
-        
+- stage: Deploy
+  displayName: Deploy image
+  jobs:  
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Bash@3
+      displayName: view content
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          
+          cd $(System.ArtifactsDirectory)
+          ls -l
+    - task: DownloadPipelineArtifact@2
+      displayName: Download Pipeline Artifact
+      inputs:
+        buildType: 'current'
+        artifactName: 'artifact-4-k8-deploy'
+        itemPattern: '**/*.yaml'
+        targetPath: '$(System.ArtifactsDirectory)'
+    # - task: KubernetesManifest@0
+    #   inputs:
+    #     action: 'deploy'
+    #     kubernetesServiceConnection: 'az-k8-cluster-svc-connection'
+    #     namespace: 'default'
+    #     manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+    #     containers: 'myreposayankc/skcnginx'
