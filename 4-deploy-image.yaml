@@ -22,7 +22,7 @@ stages:
           script: |
             # Write your commands here
             
-            echo 'Hello world-$(image-Build-BuildId)'
+            echo "Hello world-$(image-Build-BuildId)"
       # - task: DownloadPipelineArtifact@2
       #   displayName: Download Artifact - configs
       #   inputs:
