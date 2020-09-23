@@ -88,26 +88,26 @@ stages:
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'myreposayankc/skcnginx:$(tag)'
-    - task: Kubernetes@1
-      displayName: delete LB Service
-      inputs:
-        connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
-        namespace: 'default'
-        command: 'delete'
-        arguments: 'svc -l app=skc-app-1'
-        secretType: 'dockerRegistry'
-        containerRegistryType: 'Azure Container Registry'
-    - task: Kubernetes@1
-      displayName: Recreate LB Service
-      inputs:
-        connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
-        namespace: 'default'
-        command: 'apply'
-        arguments: '-f $(System.ArtifactsDirectory)/configuration/kubernetes/service.yaml'
-        secretType: 'dockerRegistry'
-        containerRegistryType: 'Azure Container Registry'
+    # - task: Kubernetes@1
+    #   displayName: delete LB Service
+    #   inputs:
+    #     connectionType: 'Kubernetes Service Connection'
+    #     kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
+    #     namespace: 'default'
+    #     command: 'delete'
+    #     arguments: 'svc -l app=skc-app-1'
+    #     secretType: 'dockerRegistry'
+    #     containerRegistryType: 'Azure Container Registry'
+    # - task: Kubernetes@1
+    #   displayName: Recreate LB Service
+    #   inputs:
+    #     connectionType: 'Kubernetes Service Connection'
+    #     kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
+    #     namespace: 'default'
+    #     command: 'apply'
+    #     arguments: '-f $(System.ArtifactsDirectory)/configuration/kubernetes/service.yaml'
+    #     secretType: 'dockerRegistry'
+    #     containerRegistryType: 'Azure Container Registry'
 
     # - task: Kubernetes@1
     #   displayName: Describe LB Service
