@@ -23,16 +23,16 @@ stages:
             # Write your commands here
             
             echo 'Hello world-$(image-Build-BuildId)'
-      - task: DownloadPipelineArtifact@2
-        displayName: Download Artifact - configs
-        inputs:
-          buildType: 'specific'
-          project: '31f3e923-2650-42ab-ad4c-9b253d18ad45'
-          definition: '3'
-          buildVersionToDownload: 'latest'
-          artifactName: 'artifact-4-k8-deploy'
-          itemPattern: '**/*.yaml'
-          targetPath: '$(System.ArtifactsDirectory)'
+      # - task: DownloadPipelineArtifact@2
+      #   displayName: Download Artifact - configs
+      #   inputs:
+      #     buildType: 'specific'
+      #     project: '31f3e923-2650-42ab-ad4c-9b253d18ad45'
+      #     definition: '3'
+      #     buildVersionToDownload: 'latest'
+      #     artifactName: 'artifact-4-k8-deploy'
+      #     itemPattern: '**/*.yaml'
+      #     targetPath: '$(System.ArtifactsDirectory)'
       # - task: KubernetesManifest@0
       #   displayName: Deploy to AKS
       #   inputs:
