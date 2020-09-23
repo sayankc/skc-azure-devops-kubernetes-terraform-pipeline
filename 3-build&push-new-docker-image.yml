@@ -9,8 +9,6 @@ variables:
 - name: image-Build-BuildId
   value: '$(Build.BuildId)'
 
-variables:
-  tag: '$(Build.BuildId)'
 
 stages:
 - stage: Build
