@@ -4,9 +4,9 @@ trigger:
 resources:
 - repo: self
 
-variables:
-- group: my-variable-grp-1
-- name: image-Build-BuildId
+# variables:
+# - group: my-variable-grp-1
+# - name: image-Build-BuildId
 
 stages:
   - stage: Deploy
