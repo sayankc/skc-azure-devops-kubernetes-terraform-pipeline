@@ -26,8 +26,8 @@ spec:
         image: myreposayankc/skcnginx
         imagePullPolicy: IfNotPresent
         ports:
-        - name: liveness-port
-          containerPort: 8000
+        - name: nginx-port
+          containerPort: 80
         resources: 
           requests:
             cpu: 300m
@@ -35,6 +35,20 @@ spec:
           limits:
             cpu: 500m
             memory: 1024Mi 
+        readinessProbe:
+          httpGet:
+            path: /
+            port: nginx-port
+          failureThreshold: 5
+          periodSeconds: 10
+          initialDelaySeconds: 60
+        livenessProbe:
+          httpGet:
+            path: /
+            port: nginx-port
+          failureThreshold: 5
+          periodSeconds: 10
+          initialDelaySeconds: 60
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
 ---
