@@ -84,7 +84,7 @@ stages:
       displayName: Deploy Pod
       inputs:
         action: 'deploy'
-        kubernetesServiceConnection: 'az-k8-cluster-svc-connection'
+        kubernetesServiceConnection: 'az-k8-cluster-svc-connection-2'
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'myreposayankc/skcnginx:$(tag)'
