@@ -1,8 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: skcapp1
   labels:
     app: skc-app-1
   name: skc-app-1
