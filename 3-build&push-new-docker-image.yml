@@ -80,9 +80,20 @@ stages:
           cd $(System.ArtifactsDirectory)
           ls -l
     - task: KubernetesManifest@0
+      displayName: Deploy Pod
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'az-k8-cluster-svc-connection'
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'myreposayankc/skcnginx:$(tag)'
+    - task: Kubernetes@1
+      displayName: create LB Service
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection'
+        namespace: 'default'
+        command: 'expose'
+        arguments: 'deployment skc-app-1 --type=LoadBalancer --name=skc-svc-1'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
