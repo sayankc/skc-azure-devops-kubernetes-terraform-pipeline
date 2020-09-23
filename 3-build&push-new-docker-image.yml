@@ -105,7 +105,7 @@ stages:
         kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
         namespace: 'default'
         command: 'apply'
-        arguments: '-f service.yaml'
+        arguments: '-f $(System.ArtifactsDirectory)/configuration/kubernetes/service.yaml'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
 
