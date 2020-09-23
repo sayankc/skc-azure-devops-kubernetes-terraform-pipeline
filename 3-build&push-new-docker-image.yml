@@ -10,7 +10,7 @@ resources:
 #   value: '$(Build.BuildId)'
 
 variables:
-  tag: 51
+  tag: '$(Build.BuildId)'
 # '$(Build.BuildId)'
   
 # '$(Build.BuildId)'
@@ -92,7 +92,7 @@ stages:
       displayName: create LB Service
       inputs:
         connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection'
+        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
         namespace: 'default'
         command: 'expose'
         arguments: 'deployment skc-app-1 --type=LoadBalancer --name=skc-svc-1'
@@ -102,7 +102,7 @@ stages:
       displayName: Describe LB Service
       inputs:
         connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection'
+        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
         namespace: 'default'
         command: 
         useConfigurationFile: true
