@@ -5,6 +5,11 @@ resources:
 - repo: self
 
 variables:
+- group: my-variable-grp-1
+- name: image-Build-BuildId
+  value: '$(Build.BuildId)'
+
+variables:
   tag: '$(Build.BuildId)'
 
 stages:
@@ -36,7 +41,7 @@ stages:
         repository: 'myreposayankc/skcnginx'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+        tags: '$(image-Build-BuildId)'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
