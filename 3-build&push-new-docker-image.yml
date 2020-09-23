@@ -61,6 +61,13 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: DownloadPipelineArtifact@2
+      displayName: Download Pipeline Artifact
+      inputs:
+        buildType: 'current'
+        artifactName: 'artifact-4-k8-deploy'
+        itemPattern: '**/*.yaml'
+        targetPath: '$(System.ArtifactsDirectory)'
     - task: Bash@3
       displayName: view content
       inputs:
@@ -70,17 +77,10 @@ stages:
           
           cd $(System.ArtifactsDirectory)
           ls -l
-    - task: DownloadPipelineArtifact@2
-      displayName: Download Pipeline Artifact
+    - task: KubernetesManifest@0
       inputs:
-        buildType: 'current'
-        artifactName: 'artifact-4-k8-deploy'
-        itemPattern: '**/*.yaml'
-        targetPath: '$(System.ArtifactsDirectory)'
-    # - task: KubernetesManifest@0
-    #   inputs:
-    #     action: 'deploy'
-    #     kubernetesServiceConnection: 'az-k8-cluster-svc-connection'
-    #     namespace: 'default'
-    #     manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
-    #     containers: 'myreposayankc/skcnginx'
+        action: 'deploy'
+        kubernetesServiceConnection: 'az-k8-cluster-svc-connection'
+        namespace: 'default'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+        containers: 'myreposayankc/skcnginx'
