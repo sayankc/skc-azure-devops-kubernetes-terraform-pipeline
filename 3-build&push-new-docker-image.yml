@@ -104,19 +104,20 @@ stages:
         connectionType: 'Kubernetes Service Connection'
         kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
         namespace: 'default'
-        command: 'expose'
-        arguments: 'deployment skc-app-1 --type=LoadBalancer --name=skc-svc-1'
+        command: 'apply'
+        arguments: '-f service.yaml'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
-    - task: Kubernetes@1
-      displayName: Describe LB Service
-      inputs:
-        connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
-        namespace: 'default'
-        command: 
-        useConfigurationFile: true
-        configurationType: 'inline'
-        inline: 'kubectl describe svc skc-svc-1 | grep -i Ingress | awk ''{print $3}'''
-        secretType: 'dockerRegistry'
-        containerRegistryType: 'Azure Container Registry'
+
+    # - task: Kubernetes@1
+    #   displayName: Describe LB Service
+    #   inputs:
+    #     connectionType: 'Kubernetes Service Connection'
+    #     kubernetesServiceEndpoint: 'az-k8-cluster-svc-connection-2'
+    #     namespace: 'default'
+    #     command: 
+    #     useConfigurationFile: true
+    #     configurationType: 'inline'
+    #     inline: 'kubectl describe svc skc-svc-1 | grep -i Ingress | awk ''{print $3}'''
+    #     secretType: 'dockerRegistry'
+    #     containerRegistryType: 'Azure Container Registry'
