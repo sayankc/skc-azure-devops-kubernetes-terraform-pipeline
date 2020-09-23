@@ -27,8 +27,8 @@ stages:
 
           echo 'Hello before'
           ls -l
-          echo "Hello skc-nginx. Deployment $(Build.BuildId)" 
-          echo "Hello skc-nginx. Deployment $(Build.BuildId)" >$(System.DefaultWorkingDirectory)/index.html
+          echo "Hello skc-nginx. Deployment $(image-Build-BuildId)" 
+          echo "Hello skc-nginx. Deployment $(image-Build-BuildId)" >$(System.DefaultWorkingDirectory)/index.html
           
           echo 'Hello after'
           ls -l
