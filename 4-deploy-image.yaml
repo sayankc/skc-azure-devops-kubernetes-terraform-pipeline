@@ -42,3 +42,13 @@ stages:
       #     namespace: 'default'
       #     manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
       #     containers: 'myreposayankc/skcnginx'
+
+      - task: GoTool@0
+        inputs:
+          version: '1.15.2'
+      
+  - task: Go@0
+    inputs:
+      command: 'get'
+      arguments: 'wer'
+      workingDirectory: 'werrt'
