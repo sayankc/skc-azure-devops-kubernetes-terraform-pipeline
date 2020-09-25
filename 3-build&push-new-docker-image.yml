@@ -80,14 +80,14 @@ stages:
           
           cd $(System.ArtifactsDirectory)
           ls -l
-    - task: KubernetesManifest@0
-      displayName: Deploy Pod
-      inputs:
-        action: 'deploy'
-        kubernetesServiceConnection: 'az-k8-cluster-svc-connection-2'
-        namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
-        containers: 'myreposayankc/skcnginx:$(tag)'
+    # - task: KubernetesManifest@0
+    #   displayName: Deploy Pod
+    #   inputs:
+    #     action: 'deploy'
+    #     kubernetesServiceConnection: 'az-k8-cluster-svc-connection-2'
+    #     namespace: 'default'
+    #     manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+    #     containers: 'myreposayankc/skcnginx:$(tag)'
     # - task: Kubernetes@1
     #   displayName: delete LB Service
     #   inputs:
