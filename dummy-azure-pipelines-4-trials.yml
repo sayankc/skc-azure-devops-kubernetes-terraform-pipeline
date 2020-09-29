@@ -31,10 +31,13 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          # Write your commands here
-          
-          echo "##vso[task.setvariable variable=Cstatus;]AA"   #$(Build.BuildId)
-          echo "$(Cstatus)"
+          echo "##vso[task.setvariable variable=Cstatus]Pass"
+          if [[ "$(Cstatus)" = "Pass" ]] 
+          then 
+          echo "-----YES---------"
+          else
+          echo "-----NO---------"
+          fi
 
 
 # - stage: Deploy
