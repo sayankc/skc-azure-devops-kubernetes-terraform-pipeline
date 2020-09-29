@@ -31,7 +31,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          echo "##vso[task.setvariable variable=Cstatus]Pass"
+          echo "##vso[task.setvariable variable=Cstatus;]Pass"
           if [[ "$(Cstatus)" = "Pass" ]] 
           then 
           echo "-----YES---------"
