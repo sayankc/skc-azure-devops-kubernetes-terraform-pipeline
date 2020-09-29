@@ -33,17 +33,20 @@ stages:
         script: |
           # Write your commands here
           
-          echo "##vso[task.setvariable variable=]$(Build.BuildId)"
-- stage: Deploy
-  displayName: Deploy image
-  jobs:  
-  - job: Deploy
-    displayName: Deploy Display
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: Bash@3
-      displayName: Verify value
-      inputs:
-        targetType: 'inline'
-        script: 'Hello $(Cstatus)'
+          echo "##vso[task.setvariable variable=Cstatus;]$(Build.BuildId)"
+          echo $(Cstatus)
+
+
+# - stage: Deploy
+#   displayName: Deploy image
+#   jobs:  
+#   - job: Deploy
+#     displayName: Deploy Display
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#     - task: Bash@3
+#       displayName: Verify value
+#       inputs:
+#         targetType: 'inline'
+#         script: 'Hello $(Cstatus)'
