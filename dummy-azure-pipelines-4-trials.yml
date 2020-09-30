@@ -40,19 +40,19 @@ stages:
   - job: Deploy
     displayName: Deploy Display
     pool:
-      vmImage: 'windows-latest'
+      vmImage: 'ubuntu-latest'
     steps:
-    # - task: Bash@3
-    #   displayName: Verify value
-    #   inputs:
-    #     targetType: 'inline'
-    #     script: 'Hello $(Cstatus)'
-
-    - task: AzureFileCopy@4
+    - task: Bash@3
+      displayName: Verify value
       inputs:
-        SourcePath: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes/main.tf'
-        azureSubscription: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
-        Destination: 'AzureBlob'
-        storage: 'skcstoragetfbackend01'
-        ContainerName: 't1112t'
-        BlobPrefix: 'b1rr1'
+        targetType: 'inline'
+        script: 'Hello $(Cstatus)'
+
+    # - task: AzureFileCopy@4
+    #   inputs:
+    #     SourcePath: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes/main.tf'
+    #     azureSubscription: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
+    #     Destination: 'AzureBlob'
+    #     storage: 'skcstoragetfbackend01'
+    #     ContainerName: 't1112t'
+    #     BlobPrefix: 'b1rr1'
