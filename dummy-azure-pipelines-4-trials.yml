@@ -51,7 +51,7 @@ stages:
     - task: AzureFileCopy@4
       inputs:
         SourcePath: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes/main.tf'
-        azureSubscription: 'MSDN Platforms Subscription(2)(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
+        azureSubscription: 'skc-Azure-resource-mngr-service-connection-1'
         Destination: 'AzureBlob'
         storage: 'skcstoragetfbackend01'
         ContainerName: 't1112t'
