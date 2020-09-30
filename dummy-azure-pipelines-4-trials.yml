@@ -33,8 +33,10 @@ stages:
         script: |
           # Write your commands here
           
-          echo 'Hello world'
+          echo 'Hello world-------->>>>>>'
           az devops -h
+          terraform version
+          echo 'Hello world-----------<<<<'
     - task: Bash@3
       inputs:
         targetType: 'inline'
