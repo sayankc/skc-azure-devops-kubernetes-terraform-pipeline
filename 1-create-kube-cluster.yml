@@ -16,42 +16,35 @@ steps:
   name: skcpublickey
   inputs:
     secureFile: 'sayankc_azure_rsa.pub'
-# - task: TerraformCLI@0
-#   displayName: 'terraform init'
-#   inputs:
-#     command: 'init'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-#     #commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
-#     backendType: 'azurerm'
-#     backendServiceArm: 'skc-Azure-resource-mngr-service-connection-1'
-#     ensureBackend: true
-#     backendAzureRmResourceGroupName: 'az-tf-backend'
-#     backendAzureRmResourceGroupLocation: 'westeurope'
-#     backendAzureRmStorageAccountName: 'skcstoragetfbackend01'
-#     backendAzureRmStorageAccountSku: 'Standard_LRS'
-#     backendAzureRmContainerName: 'tfbackend01container'
-#     backendAzureRmKey: 'tfbackend01container.tfstate'
-#     allowTelemetryCollection: false
-
-
-# - task: TerraformCLI@0
-#   displayName: 'terraform apply Cluster'
-#   inputs:
-#     command: 'apply'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-#     environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
-#     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
-#     allowTelemetryCollection: false
-
-
-- task: AzureFileCopy@4
+- task: TerraformCLI@0
+  displayName: 'terraform init'
   inputs:
-    SourcePath: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes/main.tf'
-    azureSubscription: 'MSDN Platforms Subscription(1)(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
-    Destination: 'AzureBlob'
-    storage: 'skcstoragetfbackend01'
-    ContainerName: 't1'
-    BlobPrefix: 'b1'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    #commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
+    backendType: 'azurerm'
+    backendServiceArm: 'skc-Azure-resource-mngr-service-connection-1'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'az-tf-backend'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'skcstoragetfbackend01'
+    backendAzureRmStorageAccountSku: 'Standard_LRS'
+    backendAzureRmContainerName: 'tfbackend01container'
+    backendAzureRmKey: 'tfbackend01container.tfstate'
+    allowTelemetryCollection: false
+
+
+- task: TerraformCLI@0
+  displayName: 'terraform apply Cluster'
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
+    allowTelemetryCollection: false
+
+
+
 # - task: TerraformCLI@0
 #   displayName: 'terraform destroy cluster'
 #   inputs:
