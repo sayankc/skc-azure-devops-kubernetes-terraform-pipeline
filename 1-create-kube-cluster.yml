@@ -21,7 +21,7 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      
+      pwd
       cd $(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes
       
       ls -l
