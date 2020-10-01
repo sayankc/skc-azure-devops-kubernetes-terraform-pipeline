@@ -20,7 +20,7 @@ resource "kubernetes_deployment" "sel_node_chrome" {
   }
 
   spec {
-    replicas = 1
+    replicas = var.node_count
     selector {
       match_labels = {
         App = "selenium-node-chrome"
