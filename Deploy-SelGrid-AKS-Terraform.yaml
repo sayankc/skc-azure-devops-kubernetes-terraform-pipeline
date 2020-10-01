@@ -46,3 +46,10 @@ steps:
     backendAzureRmContainerName: 'tfbackend01container'
     backendAzureRmKey: 'tfgridbackend01.tfstate'
     allowTelemetryCollection: false
+
+- task: TerraformCLI@0
+  displayName: "Deploy Grid"
+  inputs:
+    command: 'apply'
+    environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
+    allowTelemetryCollection: false
