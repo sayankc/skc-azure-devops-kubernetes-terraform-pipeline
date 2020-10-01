@@ -1,0 +1,52 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: DownloadSecureFile@1
+  name: skcpublickey
+  inputs:
+    secureFile: 'sayankc_azure_rsa.pub'
+- task: Bash@3
+  displayName: "Verify Files"
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      pwd
+      cd $(System.DefaultWorkingDirectory)/configuration/kubernetes/sel.grid/viaTF/
+      
+      ls -l
+- task: Bash@3
+  displayName: "Destroy Grid via TF"
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Hello --------------'
+      
+      az login --service-principal -t $(tenant_id) -u $(client_id) -p $(client_secret)
+      az group create --name $(rg_name) --location $(location)
+      az storage account show --name $(storage_account) --resource-group $(rg_name)
+      az storage container create --auth-mode login --name $(container_name) --account-name $(storage_account)
+      az aks get-credentials --name $(cluster_name) --resource-group $(cluster_rg_name)
+      cd $(System.DefaultWorkingDirectory)/configuration/kubernetes/sel.grid/viaTF/
+      
+      terraform init -backend-config=storage_account_name=$(storage_account) -backend-config=container_name=$(container_name) -backend-config=key=$(key) -backend-config=resource_group_name=$(rg_name) -backend-config=arm_subscription_id=$(subscription_id) -backend-config=arm_tenant_id=$(tenant_id) -backend-config=arm_client_id=$(client_id) -backend-config=arm_client_secret=$(client_secret)
+      
+      terraform destro  -auto-approve
