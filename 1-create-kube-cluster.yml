@@ -16,6 +16,15 @@ steps:
   name: skcpublickey
   inputs:
     secureFile: 'sayankc_azure_rsa.pub'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      cd $(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes
+      
+      ls -l
 - task: TerraformCLI@0
   displayName: 'terraform init'
   inputs:
