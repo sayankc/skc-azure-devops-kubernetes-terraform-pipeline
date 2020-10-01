@@ -51,5 +51,6 @@ steps:
   displayName: "Deploy Grid"
   inputs:
     command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/kubernetes/sel.grid/viaTF/'
     environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
     allowTelemetryCollection: false
