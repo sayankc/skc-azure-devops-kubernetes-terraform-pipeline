@@ -46,4 +46,4 @@ steps:
       
       terraform init -backend-config=storage_account_name=$(storage_account) -backend-config=container_name=$(container_name) -backend-config=key=$(key) -backend-config=resource_group_name=$(rg_name) -backend-config=arm_subscription_id=$(subscription_id) -backend-config=arm_tenant_id=$(tenant_id) -backend-config=arm_client_id=$(client_id) -backend-config=arm_client_secret=$(client_secret)
       
-      terraform destro  -auto-approve
+      terraform destroy  -auto-approve
