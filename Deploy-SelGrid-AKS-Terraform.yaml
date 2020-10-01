@@ -31,26 +31,20 @@ steps:
       cd $(System.DefaultWorkingDirectory)/configuration/kubernetes/sel.grid/viaTF/
       
       ls -l
-- task: TerraformCLI@0
-  displayName: "terraform init"
+- task: Bash@3
+  displayName: "Deploy Grid via TF"
   inputs:
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/kubernetes/sel.grid/viaTF/'
-    backendType: 'azurerm'
-    backendServiceArm: 'skc-Azure-resource-mngr-service-connection-1'
-    ensureBackend: true
-    backendAzureRmResourceGroupName: 'az-tf-backend'
-    backendAzureRmResourceGroupLocation: 'westeurope'
-    backendAzureRmStorageAccountName: 'skcstoragetfbackend01'
-    backendAzureRmStorageAccountSku: 'Standard_LRS'
-    backendAzureRmContainerName: 'tfbackend01container'
-    backendAzureRmKey: 'tfgridbackend01.tfstate'
-    allowTelemetryCollection: false
-
-- task: TerraformCLI@0
-  displayName: "Deploy Grid"
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/kubernetes/sel.grid/viaTF/'
-    environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
-    allowTelemetryCollection: false
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Hello --------------'
+      
+      az login --service-principal -t $(tenant_id) -u $(client_id) -p $(client_secret)
+      az group create --name $(rg_name) --location $(location)
+      az storage account show --name $(storage_account) --resource-group $(rg_name)
+      az storage container create --auth-mode login --name $(container_name) --account-name $(storage_account)
+      az aks get-credentials --name $(cluster_name) --resource-group $(cluster_rg_name)
+      terraform init -backend-config=storage_account_name=$(storage_account) -backend-config=container_name=$(container_name) -backend-config=key=$(key) -backend-config=resource_group_name=$(rg_name) -backend-config=arm_subscription_id=$(tenant_id) -backend-config=arm_tenant_id=$(tenant_id) -backend-config=arm_client_id=$(client_id) -backend-config=arm_client_secret=$(client_secret)
+      
+      terraform apply  -auto-approve
