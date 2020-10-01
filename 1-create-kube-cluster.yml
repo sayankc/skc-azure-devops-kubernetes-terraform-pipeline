@@ -21,7 +21,7 @@ steps:
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    #commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'skc-Azure-resource-mngr-service-connection-1'
     ensureBackend: true
