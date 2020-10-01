@@ -16,12 +16,21 @@ steps:
   name: skcpublickey
   inputs:
     secureFile: 'sayankc_azure_rsa.pub'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      pwd
+      cd $(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes
+      
+      ls -l
 - task: TerraformCLI@0
   displayName: 'terraform init'
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    #commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'skc-Azure-resource-mngr-service-connection-1'
     ensureBackend: true
@@ -42,6 +51,8 @@ steps:
     environmentServiceName: 'skc-Azure-resource-mngr-service-connection-1'
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(skcpublickey.secureFilePath)'
     allowTelemetryCollection: false
+
+
 
 # - task: TerraformCLI@0
 #   displayName: 'terraform destroy cluster'

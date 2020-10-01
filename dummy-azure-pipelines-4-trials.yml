@@ -6,20 +6,63 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+  tag: '$(Build.BuildId)'
+# '$(Build.BuildId)'
+  
+# '$(Build.BuildId)'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az devops -h'
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          
+          echo 'Hello world-------->>>>>>'
+          az devops -h
+          terraform version
+          echo 'Hello world-----------<<<<'
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          
+          echo "##vso[task.setvariable variable=Cstatus;]$(Build.BuildId)"
+- stage: Deploy
+  displayName: Deploy image
+  jobs:  
+  - job: Deploy
+    displayName: Deploy Display
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Bash@3
+      displayName: Verify value
+      inputs:
+        targetType: 'inline'
+        script: 'Hello $(Cstatus)'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az devops -h'
+    # - task: AzureFileCopy@4
+    #   inputs:
+    #     SourcePath: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes/main.tf'
+    #     azureSubscription: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
+    #     Destination: 'AzureBlob'
+    #     storage: 'skcstoragetfbackend01'
+    #     ContainerName: 't1112t'
+    #     BlobPrefix: 'b1rr1'
