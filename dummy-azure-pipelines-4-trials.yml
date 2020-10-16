@@ -12,9 +12,9 @@ variables:
   
 # '$(Build.BuildId)'
 
-# stages:
-# - stage: Build
-#   displayName: Build image
+stages:
+- stage: Build
+  displayName: Build image
   jobs:  
   - job: Build
     displayName: Build
@@ -44,9 +44,9 @@ variables:
           # Write your commands here
           
           echo "##vso[task.setvariable variable=Cstatus;]$(Build.BuildId)"
-# - stage: Deploy
-#   displayName: Deploy image
-#   jobs:  
+- stage: Deploy
+  displayName: Deploy image
+  jobs:  
   - job: Deploy
     displayName: Deploy Display
     pool:
@@ -56,7 +56,7 @@ variables:
       displayName: Verify value
       inputs:
         targetType: 'inline'
-        script: 'echo "Hello $(tag)"'
+        script: 'echo "Hello $(Cstatus)"'
 
     # - task: AzureFileCopy@4
     #   inputs:
