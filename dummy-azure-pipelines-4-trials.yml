@@ -56,7 +56,7 @@ stages:
       displayName: Verify value
       inputs:
         targetType: 'inline'
-        script: 'Hello $(Cstatus)'
+        script: 'Hello $(tag)'
 
     # - task: AzureFileCopy@4
     #   inputs:
